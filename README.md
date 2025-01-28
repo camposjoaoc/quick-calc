@@ -32,7 +32,7 @@ A simple calculator application built using **React**, **Tailwind CSS**, and **J
 
 ## 🌐 Demo
 
-You can see the live version of the app here: [Calculator Demo](https://your-demo-link.com)
+You can see the live version of the app here: [Calculator Demo](https://jc-quick-calc.netlify.app/)
 
 ---
 
