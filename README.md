@@ -1,4 +1,4 @@
-# 🧮 Calculator App
+# 🧮 QUICK CALC
 
 A simple calculator application built using **React**, **Tailwind CSS**, and **JavaScript**. This project demonstrates the creation of a functional and responsive calculator with a modern UI.
 
