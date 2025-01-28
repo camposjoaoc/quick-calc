@@ -16,28 +16,32 @@ function Calculator() {
         "0", // Zero
         "EQUALS", // Calculate the result
     ];
-
     // State to control if the result is being shown
     const [showResult, setShowResult] = useState(false);
     // State to manage the calculator display value
     const [display, setDisplay] = useState("");
     // Limit for the maximum length of the display value
     const maxLimit = 15;
-
+    // Function to safely evaluate the mathematical expression
+    function safeEvaluate(expression) {
+        try {
+            return new Function(`return ${expression}`)();
+        } catch {
+            return "Error";
+        }
+    }
     // Function to calculate the result of the current operation
     function calculateResult() {
-        if (display.length !== 0) { // Ensure there's an expression to evaluate
-            try {
-                let calcResult = eval(display); // Evaluate the expression
-                calcResult = parseFloat(calcResult.toFixed(3)); // Limit result to 3 decimals
-                setDisplay(calcResult); // Update display with the result
-                setShowResult(true); // Indicate result is being shown
-            } catch (error) {
-                setDisplay("Error"); // Display error for invalid expressions
+        if (display.length !== 0) {
+            const result = safeEvaluate(display);
+            if (result === "Error") {
+                setDisplay("Error");
+            } else {
+                setDisplay(parseFloat(result.toFixed(3)).toString());
+                setShowResult(true);
             }
         }
     }
-
     // Function to handle button clicks
     function handleButton(value) {
         setShowResult(false); // Reset result indicator
@@ -59,12 +63,9 @@ function Calculator() {
         // Include all supported operators: %, *, /, +, -
         return ["%", "*", "/", "+", "-"].includes(char);
     }
-
-
     // CSS classes for operation display and result display
     const operationClass = "text-[1.2rem] tracking-[2px] flex gap-[5px] items-center text-[rgba(255,255,255,0.5)] justify-end";
     const resultClass = "text-[1.7rem]";
-
     return (
         <div className="min-w-[320px] bg-black flex flex-col gap-4 p-4 rounded-2xl">
             {/* Display container */}
